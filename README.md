@@ -1,7 +1,4 @@
 # Non-uniform Sampling for Large Itemset Mining (Reimplementation)
-
-本專案是論文 **「Non-uniform Sampling Methods for Large Itemset Mining」** 的完整 Python 復現與實驗平台。
-
 ---
 
 ## 1. 安裝環境與套件
