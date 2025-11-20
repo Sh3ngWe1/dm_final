@@ -22,7 +22,8 @@ Transaction = FrozenSet[str]
 Itemset = Tuple[str, ...]
 
 MAX_LEN = 3
-MAX_TRANSACTIONS = None
+# MAX_TRANSACTIONS = None
+MAX_TRANSACTIONS = 1500000
 
 # ---------- 讀檔工具 ----------
 
@@ -135,7 +136,7 @@ def run_full_experiments():
             "min_sup_ratios": [0.02, 0.03],   # 可以依照 paper 調
             "sample_rates": [0.1, 0.2, 0.3],
             "max_len": MAX_LEN,                     # itemset 長度上限（避免爆炸）
-            "max_transactions": MAX_TRANSACTIONS,         # 先只取前 3000 筆當 demo
+            "max_transactions": MAX_TRANSACTIONS,         # 只取前 150k 筆
         },
         "bms1": {
             "path": "data/BMS1_itemset_mining.txt",
