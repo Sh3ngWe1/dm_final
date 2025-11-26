@@ -1,0 +1,69 @@
+dataset,min_sup_ratio,sample_rate,sampling,n_txn,min_sup_abs,sample_size,true_num_freq,approx_num_freq,non_common_output_ratio,support_error_rate
+# [INFO] Loading dataset: chainstore from data/chainstoreFIM.txt
+chainstore,0.005,0.005,uniform,1112949,5565,5565,129,138,0.20930232558139536,0.10420823458745641
+chainstore,0.005,0.005,nonuni1,1112949,5565,5565,129,122,0.17829457364341086,0.10587144564082407
+chainstore,0.005,0.005,nonuni2,1112949,5565,5565,129,121,0.10852713178294573,0.08690907999127417
+chainstore,0.005,0.01,uniform,1112949,5565,11130,129,132,0.1937984496124031,0.0776361696673714
+chainstore,0.005,0.01,nonuni1,1112949,5565,11130,129,131,0.17054263565891473,0.07598511180323941
+chainstore,0.005,0.01,nonuni2,1112949,5565,11130,129,123,0.09302325581395349,0.056926159144396075
+chainstore,0.01,0.005,uniform,1112949,11130,5565,45,47,0.08888888888888889,0.08315218742054663
+chainstore,0.01,0.005,nonuni1,1112949,11130,5565,45,37,0.3111111111111111,0.07297735335183714
+chainstore,0.01,0.005,nonuni2,1112949,11130,5565,45,42,0.06666666666666667,0.04550567217620797
+chainstore,0.01,0.01,uniform,1112949,11130,11130,45,44,0.1111111111111111,0.06389188801384744
+chainstore,0.01,0.01,nonuni1,1112949,11130,11130,45,40,0.2,0.050556619489310735
+chainstore,0.01,0.01,nonuni2,1112949,11130,11130,45,42,0.06666666666666667,0.030214542815886303
+# [INFO] Loading dataset: BMS2 from data/BMS2_itemset_mining.txt
+BMS2,0.005,0.005,uniform,77512,388,388,408,59107,144.15441176470588,0.5131765046887
+BMS2,0.005,0.005,nonuni1,77512,388,388,408,629,1.1348039215686274,0.26812732980247006
+BMS2,0.005,0.005,nonuni2,77512,388,388,408,1024,1.7843137254901962,0.2823388721657586
+BMS2,0.005,0.01,uniform,77512,388,776,408,3525,7.884803921568627,0.4038147598096065
+BMS2,0.005,0.01,nonuni1,77512,388,776,408,455,0.6151960784313726,0.21564153158497143
+BMS2,0.005,0.01,nonuni2,77512,388,776,408,578,0.6911764705882353,0.19564958361416226
+BMS2,0.005,0.05,uniform,77512,388,3876,408,577,0.6544117647058824,0.1728277543677496
+BMS2,0.005,0.05,nonuni1,77512,388,3876,408,417,0.24754901960784315,0.09595582393473313
+BMS2,0.005,0.05,nonuni2,77512,388,3876,408,432,0.2107843137254902,0.08668786969919165
+# [INFO] Loading dataset: T10I4D100K from data/T10I4D100K.txt
+T10I4D100K,0.005,0.05,uniform,100000,500,5000,1073,1222,0.34762348555452005,0.12802014598980102
+T10I4D100K,0.005,0.05,nonuni1,100000,500,5000,1073,1215,0.391425908667288,0.11263225881825539
+T10I4D100K,0.005,0.05,nonuni2,100000,500,5000,1073,1324,0.40354147250698974,0.1181491799025241
+T10I4D100K,0.01,0.05,uniform,100000,1000,5000,385,388,0.13766233766233765,0.08279305025662238
+T10I4D100K,0.01,0.05,nonuni1,100000,1000,5000,385,397,0.11428571428571428,0.08409008323318132
+T10I4D100K,0.01,0.05,nonuni2,100000,1000,5000,385,408,0.09090909090909091,0.08356640837818156
+# [INFO] Loading dataset: Retail from data/retail.txt
+Retail,0.005,0.05,uniform,88162,441,4409,580,595,0.3120689655172414,0.11517771832817902
+Retail,0.005,0.05,nonuni1,88162,441,4409,580,607,0.2775862068965517,0.12077715292989473
+Retail,0.005,0.05,nonuni2,88162,441,4409,580,584,0.2655172413793103,0.09169581712557301
+Retail,0.01,0.05,uniform,88162,882,4409,159,162,0.16981132075471697,0.07823967029554602
+Retail,0.01,0.05,nonuni1,88162,882,4409,159,164,0.16981132075471697,0.09945233075002392
+Retail,0.01,0.05,nonuni2,88162,882,4409,159,164,0.1069182389937107,0.06953895805146591
+
+
+# ===== SUMMARY (for ChatGPT analysis) =====
+
+## Dataset: BMS2
+- sampling = uniform: avg_non_common_output_ratio = 50.8979, avg_support_error_rate = 0.3633 (over 3 settings)
+- sampling = nonuni1: avg_non_common_output_ratio = 0.6658, avg_support_error_rate = 0.1932 (over 3 settings)
+- sampling = nonuni2: avg_non_common_output_ratio = 0.8954, avg_support_error_rate = 0.1882 (over 3 settings)
+-> Best (non-common output ratio): nonuni1
+-> Best (support error rate): nonuni2
+
+## Dataset: Retail
+- sampling = uniform: avg_non_common_output_ratio = 0.2409, avg_support_error_rate = 0.0967 (over 2 settings)
+- sampling = nonuni1: avg_non_common_output_ratio = 0.2237, avg_support_error_rate = 0.1101 (over 2 settings)
+- sampling = nonuni2: avg_non_common_output_ratio = 0.1862, avg_support_error_rate = 0.0806 (over 2 settings)
+-> Best (non-common output ratio): nonuni2
+-> Best (support error rate): nonuni2
+
+## Dataset: T10I4D100K
+- sampling = uniform: avg_non_common_output_ratio = 0.2426, avg_support_error_rate = 0.1054 (over 2 settings)
+- sampling = nonuni1: avg_non_common_output_ratio = 0.2529, avg_support_error_rate = 0.0984 (over 2 settings)
+- sampling = nonuni2: avg_non_common_output_ratio = 0.2472, avg_support_error_rate = 0.1009 (over 2 settings)
+-> Best (non-common output ratio): uniform
+-> Best (support error rate): nonuni1
+
+## Dataset: chainstore
+- sampling = uniform: avg_non_common_output_ratio = 0.1508, avg_support_error_rate = 0.0822 (over 4 settings)
+- sampling = nonuni1: avg_non_common_output_ratio = 0.2150, avg_support_error_rate = 0.0763 (over 4 settings)
+- sampling = nonuni2: avg_non_common_output_ratio = 0.0837, avg_support_error_rate = 0.0549 (over 4 settings)
+-> Best (non-common output ratio): nonuni2
+-> Best (support error rate): nonuni2

@@ -101,7 +101,6 @@ results/
 ---
 #Todo: 
 
-1. 把 max_len 改成 7（跟論文更近）
+1. 把 max_len 改成 None（跟論文更近）
 2. 把 min_sup 調成 0.005 / 0.01（跟原始 paper 一樣）
 3. 把 Eclat 換成 LCM（SPMF 同等級）
-4. 用固定 seed 完全做 deterministic run

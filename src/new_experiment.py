@@ -12,6 +12,7 @@
 
 import math
 import os
+import sys
 from typing import List, FrozenSet, Dict, Tuple
 from collections import defaultdict
 
@@ -27,7 +28,7 @@ from metrics import (
 Transaction = FrozenSet[str]
 Itemset = Tuple[str, ...]
 
-MAX_LEN = None
+MAX_LEN = 10
 MAX_TRANSACTIONS = 1500000  # 論文:150k
 
 
@@ -90,11 +91,13 @@ def run_single_setting(
     sample_size = max(1, math.ceil(sample_rate * n_txn))
 
     # 1. ground truth（完整 DB）
+    print(f"  [1/4] 計算 ground truth (brute force)...", file=sys.stderr, flush=True)
     exact_freq = brute_force_frequent_itemsets(
         transactions, min_sup_abs=min_sup_abs, max_len=max_len
     )
 
     # 2. 抽樣 approximate
+    print(f"  [2/4] 執行抽樣挖掘 (sampling={sampling})...", file=sys.stderr, flush=True)
     approx_freq, est_sup = approximate_itemset_miner(
         transactions,
         min_sup_abs=min_sup_abs,
@@ -105,7 +108,9 @@ def run_single_setting(
     )
 
     # 3. 指標
+    print(f"  [3/4] 計算 non-common output ratio...", file=sys.stderr, flush=True)
     nc_ratio = compute_non_common_output_ratio(exact_freq, approx_freq)
+    print(f"  [4/4] 計算 support error rate...", file=sys.stderr, flush=True)
     se_rate = compute_support_error_rate(exact_freq, est_sup)
 
     return {
@@ -229,13 +234,13 @@ def run_full_experiments():
     （BMS1 論文沒用，如果你想順便跑可以比照 BMS2 另外加）
     """
     DATASETS = {
-        "OnlineRetail": {
-            "path": "data/online_retail.txt",
-            "min_sup_ratios": [0.002, 0.01],
-            "sample_rates": [0.005, 0.01],
-            "max_len": MAX_LEN,
-            "max_transactions": MAX_TRANSACTIONS,
-        },
+        # "OnlineRetail": {
+        #     "path": "data/online_retail.txt",
+        #     "min_sup_ratios": [0.002, 0.01],
+        #     "sample_rates": [0.005, 0.01],
+        #     "max_len": MAX_LEN,
+        #     "max_transactions": MAX_TRANSACTIONS,
+        # },
         "chainstore": {
             "path": "data/chainstoreFIM.txt",
             "min_sup_ratios": [0.005, 0.01],
@@ -276,6 +281,14 @@ def run_full_experiments():
     )
 
     all_results: List[Dict] = []
+    
+    # 計算總實驗數
+    total_experiments = 0
+    for ds_name, cfg in DATASETS.items():
+        if os.path.exists(cfg["path"]):
+            total_experiments += len(cfg["min_sup_ratios"]) * len(cfg["sample_rates"]) * len(sampling_methods)
+    
+    current_experiment = 0
 
     for ds_name, cfg in DATASETS.items():
         path = cfg["path"]
@@ -284,6 +297,10 @@ def run_full_experiments():
             continue
 
         print(f"# [INFO] Loading dataset: {ds_name} from {path}")
+        print(f"\n{'='*60}", file=sys.stderr)
+        print(f"正在處理資料集: {ds_name}", file=sys.stderr)
+        print(f"{'='*60}", file=sys.stderr, flush=True)
+        
         txns = load_transactions(path)
         max_tx = cfg.get("max_transactions")
         if max_tx is not None and len(txns) > max_tx:
@@ -294,6 +311,10 @@ def run_full_experiments():
         for msr in cfg["min_sup_ratios"]:
             for sr in cfg["sample_rates"]:
                 for sm in sampling_methods:
+                    current_experiment += 1
+                    print(f"\n[{current_experiment}/{total_experiments}] {ds_name} | min_sup={msr}, sample_rate={sr}, sampling={sm}", 
+                          file=sys.stderr, flush=True)
+                    
                     res = run_single_setting(
                         dataset_name=ds_name,
                         transactions=txns,
@@ -304,6 +325,9 @@ def run_full_experiments():
                         random_seed=42,
                     )
                     all_results.append(res)
+                    
+                    print(f"  ✓ 完成 (non-common ratio: {res['non_common_output_ratio']:.4f}, support error: {res['support_error_rate']:.4f})", 
+                          file=sys.stderr, flush=True)
 
                     # 以 CSV 一行輸出
                     print(
@@ -322,13 +346,24 @@ def run_full_experiments():
 
     # 4. 畫圖並輸出到 new_results/
     output_dir = "new_results"
-    for ds_name in sorted({r["dataset"] for r in all_results}):
+    print(f"\n{'='*60}", file=sys.stderr)
+    print(f"開始生成圖表...", file=sys.stderr)
+    print(f"{'='*60}", file=sys.stderr, flush=True)
+    
+    dataset_names = sorted({r["dataset"] for r in all_results})
+    for idx, ds_name in enumerate(dataset_names, 1):
         ds_results = [r for r in all_results if r["dataset"] == ds_name]
         if not ds_results:
             continue
+        print(f"[{idx}/{len(dataset_names)}] 生成 {ds_name} 的圖表...", file=sys.stderr, flush=True)
         plot_for_dataset(ds_name, ds_results, output_dir)
+        print(f"  ✓ 圖表已儲存至 {output_dir}/", file=sys.stderr, flush=True)
 
     # 5. 在 terminal 印 summary（你可以整段複製貼給我看）
+    print(f"\n{'='*60}", file=sys.stderr)
+    print(f"所有實驗完成！", file=sys.stderr)
+    print(f"{'='*60}\n", file=sys.stderr, flush=True)
+    
     print("\n\n# ===== SUMMARY (for ChatGPT analysis) =====")
     # 先按 dataset, sampling 聚合
     summary = defaultdict(lambda: defaultdict(list))
