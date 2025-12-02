@@ -114,7 +114,7 @@ systematic_results_0.02/
 
 ```python
 # 全域參數
-MAX_LEN = 7                # itemset 最大長度（3-7 建議）
+MAX_LEN = 7                # itemset 最大長度
 MAX_TRANSACTIONS = 1500000 # 最大交易數（None = 全部）
 
 # 資料集配置

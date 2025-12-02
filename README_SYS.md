@@ -124,9 +124,6 @@ pip install numpy matplotlib pandas
 ### 執行實驗
 
 ```bash
-# 在專案根目錄執行
-cd /Users/linshengwei/workspace/ntust/dataMining/dm_final
-
 # 執行系統抽樣實驗
 python src/experiment_systematic.py
 ```
