@@ -1,8 +1,6 @@
 from typing import Dict, Tuple, Set
 
-
 Itemset = Tuple[str, ...]
-
 
 def compute_non_common_output_ratio(
     exact_freq: Dict[Itemset, int],

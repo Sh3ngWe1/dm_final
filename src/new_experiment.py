@@ -16,10 +16,7 @@ Transaction = FrozenSet[str]
 Itemset = Tuple[str, ...]
 
 MAX_LEN = 10
-MAX_TRANSACTIONS = 1500000  # 論文:150k
-
-
-# ---------- 讀檔工具 ----------
+MAX_TRANSACTIONS = 1500000
 
 def load_transactions(path: str, sep: str = " ") -> List[Transaction]:
     txns: List[Transaction] = []
@@ -60,12 +57,12 @@ def run_single_setting(
     min_sup_abs = max(1, math.ceil(min_sup_ratio * n_txn))
     sample_size = max(1, math.ceil(sample_rate * n_txn))
 
-    print(f"  [1/4] 計算 ground truth (brute force)...", file=sys.stderr, flush=True)
+    print(f"  [1/4] Calculate ground truth (brute force)...", file=sys.stderr, flush=True)
     exact_freq = brute_force_frequent_itemsets(
         transactions, min_sup_abs=min_sup_abs, max_len=max_len
     )
 
-    print(f"  [2/4] 執行抽樣挖掘 (sampling={sampling})...", file=sys.stderr, flush=True)
+    print(f"  [2/4] Run sampling mining (sampling={sampling})...", file=sys.stderr, flush=True)
     approx_freq, est_sup = approximate_itemset_miner(
         transactions,
         min_sup_abs=min_sup_abs,
@@ -75,9 +72,9 @@ def run_single_setting(
         random_seed=random_seed,
     )
 
-    print(f"  [3/4] 計算 non-common output ratio...", file=sys.stderr, flush=True)
+    print(f"  [3/4] Calculate non-common output ratio...", file=sys.stderr, flush=True)
     nc_ratio = compute_non_common_output_ratio(exact_freq, approx_freq)
-    print(f"  [4/4] 計算 support error rate...", file=sys.stderr, flush=True)
+    print(f"  [4/4] Calculate support error rate...", file=sys.stderr, flush=True)
     se_rate = compute_support_error_rate(exact_freq, est_sup)
 
     return {
@@ -233,7 +230,7 @@ def run_full_experiments():
 
         print(f"# [INFO] Loading dataset: {ds_name} from {path}")
         print(f"\n{'='*60}", file=sys.stderr)
-        print(f"正在處理資料集: {ds_name}", file=sys.stderr)
+        print(f"Processing dataset: {ds_name}", file=sys.stderr)
         print(f"{'='*60}", file=sys.stderr, flush=True)
         
         txns = load_transactions(path)
@@ -261,7 +258,7 @@ def run_full_experiments():
                     )
                     all_results.append(res)
                     
-                    print(f"  ✓ 完成 (non-common ratio: {res['non_common_output_ratio']:.4f}, support error: {res['support_error_rate']:.4f})", 
+                    print(f"Completed (non-common ratio: {res['non_common_output_ratio']:.4f}, support error: {res['support_error_rate']:.4f})", 
                           file=sys.stderr, flush=True)
 
                     print(
@@ -280,7 +277,7 @@ def run_full_experiments():
 
     output_dir = "new_results"
     print(f"\n{'='*60}", file=sys.stderr)
-    print(f"開始生成圖表...", file=sys.stderr)
+    print(f"Start generating plots...", file=sys.stderr)
     print(f"{'='*60}", file=sys.stderr, flush=True)
     
     dataset_names = sorted({r["dataset"] for r in all_results})
@@ -288,12 +285,12 @@ def run_full_experiments():
         ds_results = [r for r in all_results if r["dataset"] == ds_name]
         if not ds_results:
             continue
-        print(f"[{idx}/{len(dataset_names)}] 生成 {ds_name} 的圖表...", file=sys.stderr, flush=True)
+        print(f"[{idx}/{len(dataset_names)}] Generating plots for {ds_name}...", file=sys.stderr, flush=True)
         plot_for_dataset(ds_name, ds_results, output_dir)
-        print(f"  ✓ 圖表已儲存至 {output_dir}/", file=sys.stderr, flush=True)
+        print(f"Plots saved to {output_dir}/{ds_name}...", file=sys.stderr, flush=True)
 
     print(f"\n{'='*60}", file=sys.stderr)
-    print(f"所有實驗完成！", file=sys.stderr)
+    print(f"All experiments completed!", file=sys.stderr)
     print(f"{'='*60}\n", file=sys.stderr, flush=True)
     
     print("\n\n# ===== SUMMARY (for ChatGPT analysis) =====")

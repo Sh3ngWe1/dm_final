@@ -2,11 +2,11 @@
 
 # Systematic Sampling for Frequent Itemset Mining
 
-> 本專案實作並比較**標準有放回抽樣**與**系統抽樣**在頻繁項目集挖掘中的效果，並提出最佳組合建議。
+這個專案實作並比較標準有放回抽樣與系統抽樣在頻繁項目集挖掘中的效果，找出最佳組合。
 
 ---
 
-## 📚 專案文件
+## 專案文件
 
 - **[README.md](README.md)**（本文件）：快速開始與操作指南
 - **[README_SYS.md](README_SYS.md)**：系統抽樣原理、理論背景與技術細節
@@ -14,7 +14,7 @@
 
 ---
 
-## 🚀 快速開始
+## 快速開始
 
 ### 1. 安裝環境與套件
 
@@ -46,7 +46,7 @@ data/
 
 ---
 
-## 🔬 執行實驗
+## 執行實驗
 
 ### 主實驗：系統抽樣比較
 
@@ -56,16 +56,16 @@ python src/experiment_systematic.py
 
 #### 實驗內容：
 
-- ✅ 測試 4 個資料集（Retail, BMS1, BMS2, Chainstore）
-- ✅ 比較 4 種方法：
+- 測試 4 個資料集（Retail, BMS1, BMS2, Chainstore）
+- 比較 4 種方法：
   - Non-Uni 1 (標準) - 基於交易長度
   - Non-Uni 1 (系統抽樣)
   - Non-Uni 2 (標準) - 基於高頻項目數
   - Non-Uni 2 (系統抽樣)
-- ✅ 評估 2 個指標：
+- 評估 2 個指標：
   - Non-common Output Ratio（集合差異比）
   - Support Error Rate（支援度誤差率）
-- ✅ 測試 5 個抽樣比例：10%, 20%, 30%, 40%, 50%
+- 測試 5 個抽樣比例：10%, 20%, 30%, 40%, 50%
 
 #### 輸出說明：
 
@@ -104,11 +104,11 @@ systematic_results_0.02/
 └── Chainstore_minsup0.01_error.png
 ```
 
-> **注意**：資料夾名稱會根據 MinSup 設定自動變化（如 `systematic_results_0.005/`）
+注意：資料夾名稱會根據 MinSup 設定自動變化（如 `systematic_results_0.005/`）
 
 ---
 
-## ⚙️ 自訂實驗參數
+## 自訂實驗參數
 
 編輯 `src/experiment_systematic.py` 中的設定：
 
@@ -141,7 +141,7 @@ DATASETS = {
 
 ---
 
-## 📊 如何解讀結果
+## 如何解讀結果
 
 ### 圖表說明
 
@@ -154,7 +154,7 @@ DATASETS = {
 
 ### 評估標準
 
-**越低越好的指標：**
+越低越好的指標：
 
 1. **Non-common Output Ratio**
 
@@ -169,20 +169,20 @@ DATASETS = {
 
 ```
 如果看到：
-✅ 實線在虛線下方 → 系統抽樣表現更好
-⚠️ 實線在虛線上方 → 標準抽樣表現更好
-≈ 兩線重疊 → 兩者效果相近
+- 實線在虛線下方 → 系統抽樣表現更好
+- 實線在虛線上方 → 標準抽樣表現更好
+- 兩線重疊 → 兩者效果相近
 ```
 
-**關鍵發現：**
+關鍵發現：
 
-- 🏆 **Non-Uni 2 + 系統抽樣**：在兩個指標上都表現最佳
-- ⚠️ **Non-Uni 1 + 系統抽樣**：Error Rate 改善，但 Output Ratio 可能較差
-- 📊 詳細分析請參考 [RESULT_ANALYSIS.md](RESULT_ANALYSIS.md)
+- **Non-Uni 2 + 系統抽樣**：在兩個指標上都表現最佳
+- **Non-Uni 1 + 系統抽樣**：Error Rate 改善，但 Output Ratio 可能較差
+- 詳細分析請參考 [RESULT_ANALYSIS.md](RESULT_ANALYSIS.md)
 
 ---
 
-## 📁 專案結構
+## 專案結構
 
 ```
 dm_final/
@@ -196,21 +196,21 @@ dm_final/
 │   ├── miner.py                       # Weighted Eclat 挖掘演算法
 │   ├── metrics.py                     # 評估指標
 │   ├── experiment.py                  # 原始實驗程式
-│   └── experiment_systematic.py       # 🔥 系統抽樣實驗（主程式）
+│   └── experiment_systematic.py       # 系統抽樣實驗（主程式）
 ├── systematic_results_{MIN_SUP}/      # 實驗結果圖表
-├── README.md                          # 📖 本文件（操作指南）
-├── README_SYS.md                      # 📚 系統抽樣原理與技術細節
-├── RESULT_ANALYSIS.md                 # 📊 實驗結果分析
+├── README.md                          # 本文件（操作指南）
+├── README_SYS.md                      # 系統抽樣原理與技術細節
+├── RESULT_ANALYSIS.md                 # 實驗結果分析
 └── requirements.txt                   # Python 套件依賴
 ```
 
 ---
 
-## 🎯 核心貢獻
+## 核心貢獻
 
 ### 1. 實作系統抽樣方法
 
-傳統方法使用**有放回隨機抽樣**，本專案實作了**系統抽樣**：
+傳統方法使用有放回隨機抽樣，本專案實作了系統抽樣：
 
 ```python
 # 系統抽樣核心概念
@@ -219,50 +219,46 @@ dm_final/
 
 ### 2. 全面比較實驗
 
-- ✅ 4 個標準資料集
-- ✅ 2 種非均勻抽樣機率
-- ✅ 2 種取樣方法（標準 vs 系統）
-- ✅ 5 個抽樣比例
-- ✅ 2 個評估指標
+- 4 個標準資料集
+- 2 種非均勻抽樣機率
+- 2 種取樣方法（標準 vs 系統）
+- 5 個抽樣比例
+- 2 個評估指標
 
 ### 3. 發現最佳組合
 
-**實驗結論：Non-Uni 2 + 系統抽樣**
+實驗結論：Non-Uni 2 + 系統抽樣
 
-- ✅ Support Error Rate 降低 50%+
-- ✅ Non-common Output Ratio 保持穩定
-- ✅ 計算成本幾乎相同
+- Support Error Rate 降低 50%+
+- Non-common Output Ratio 保持穩定
+- 計算成本幾乎相同
 
 ---
 
-## 📖 延伸閱讀
+## 延伸閱讀
 
 ### 想了解系統抽樣原理？
 
-👉 閱讀 [README_SYS.md](README_SYS.md)
-
-內容包含：
+看 [README_SYS.md](README_SYS.md)，裡面有：
 
 - 系統抽樣 vs 標準抽樣的詳細比較
 - 數學原理與理論保證
 - 實作技術細節
 - 時間/空間複雜度分析
 
-### 想了解實驗結果為何如此？
+### 想了解實驗結果？
 
-👉 閱讀 [RESULT_ANALYSIS.md](RESULT_ANALYSIS.md)
+看 [RESULT_ANALYSIS.md](RESULT_ANALYSIS.md)，裡面解釋：
 
-內容包含：
-
-- 為什麼 Error Rate 改善？
-- 為什麼 Output Ratio 不穩定？
-- 為什麼 nonuni1_sys 表現較差？
-- 為什麼 nonuni2_sys 是最佳組合？
+- 為什麼 Error Rate 會改善
+- 為什麼 Output Ratio 不穩定
+- 為什麼 nonuni1_sys 表現較差
+- 為什麼 nonuni2_sys 是最佳組合
 - 方差-偏差權衡（Variance-Bias Tradeoff）分析
 
 ---
 
-## 💻 系統需求
+## 系統需求
 
 - **Python**: 3.8+
 - **必要套件**: numpy, matplotlib, pandas
@@ -271,11 +267,11 @@ dm_final/
 
 ---
 
-## 🔧 常見問題
+## 常見問題
 
 ### Q1: 執行時間很長怎麼辦？
 
-**A:** 調整參數以加速測試：
+調整參數來加速測試：
 
 ```python
 MAX_LEN = 3                # 降低 itemset 長度
@@ -285,7 +281,7 @@ sample_rates = [0.1, 0.3]  # 減少測試的抽樣比例
 
 ### Q2: 記憶體不足怎麼辦？
 
-**A:** 降低 `MAX_TRANSACTIONS`：
+降低 `MAX_TRANSACTIONS`：
 
 ```python
 MAX_TRANSACTIONS = 100000  # 或更小
@@ -293,7 +289,7 @@ MAX_TRANSACTIONS = 100000  # 或更小
 
 ### Q3: 想測試不同的 MinSup？
 
-**A:** 修改 `DATASETS` 中的 `min_sup_ratio`：
+修改 `DATASETS` 中的 `min_sup_ratio`：
 
 ```python
 "min_sup_ratio": 0.005,  # 從 0.02 改為 0.005
@@ -303,7 +299,7 @@ MAX_TRANSACTIONS = 100000  # 或更小
 
 ### Q4: 如何只測試單一資料集？
 
-**A:** 在 `main()` 函數中註解掉不需要的資料集：
+在 `main()` 函數中註解掉不需要的資料集：
 
 ```python
 DATASETS = {
@@ -316,7 +312,7 @@ DATASETS = {
 
 ---
 
-## 📝 引用
+## 引用
 
 如果本專案對您的研究有幫助，歡迎引用：
 
@@ -327,13 +323,13 @@ DATASETS = {
 
 ---
 
-## 📧 聯絡資訊
+## 聯絡資訊
 
 如有問題或建議，歡迎透過 GitHub Issues 提出。
 
 ---
 
-## 🙏 致謝
+## 致謝
 
 本專案基於以下研究：
 

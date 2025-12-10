@@ -1,9 +1,7 @@
 from collections import defaultdict
 from typing import List, FrozenSet
 
-
 Transaction = FrozenSet[str]
-
 
 def compute_probs_uniform(transactions: List[Transaction]) -> List[float]:
     n = len(transactions)
