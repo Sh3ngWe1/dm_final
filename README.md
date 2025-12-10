@@ -279,7 +279,7 @@ MAX_TRANSACTIONS = 50000   # 限制交易數量
 sample_rates = [0.1, 0.3]  # 減少測試的抽樣比例
 ```
 
-### Q2: 記憶體不足怎麼辦？
+### Q2: Out of Memory Issue？
 
 降低 `MAX_TRANSACTIONS`：
 
@@ -297,7 +297,7 @@ MAX_TRANSACTIONS = 100000  # 或更小
 
 結果會自動儲存到對應的資料夾（如 `systematic_results_0.005/`）
 
-### Q4: 如何只測試單一資料集？
+### Q4: 只測試單一資料集
 
 在 `main()` 函數中註解掉不需要的資料集：
 
@@ -309,34 +309,3 @@ DATASETS = {
     # "Chainstore": { ... },  # 註解掉
 }
 ```
-
----
-
-## 引用
-
-如果本專案對您的研究有幫助，歡迎引用：
-
-```
-系統抽樣於頻繁項目集挖掘之研究
-基於 Non-uniform Sampling 方法的改進與比較實驗
-```
-
----
-
-## 聯絡資訊
-
-如有問題或建議，歡迎透過 GitHub Issues 提出。
-
----
-
-## 致謝
-
-本專案基於以下研究：
-
-- **原始論文**: Mining Frequent Itemsets using Non-uniform Sampling
-- **系統抽樣理論**: Cochran, W. G. (1977). Sampling Techniques
-- **Horvitz-Thompson Estimator**: 用於不等機率抽樣的無偏估計
-
----
-
-**最後更新**: 2025-12-01
